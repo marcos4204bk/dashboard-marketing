@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Configurações básicas da página -->
+  <meta charset="UTF-8">
+  <!-- Esta linha é essencial para o site funcionar bem no celular -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Marketing Digital</title>
+  <!-- Ligamos o arquivo de estilos (aparência) -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== CABEÇALHO ===== -->
+  <header class="topo">
+    <div>
+      <p class="topo__sub">Marketing Digital</p>
+      <h1>Painel de Desempenho</h1>
+      <!-- Mostra as datas do período escolhido (preenchido pelo JavaScript) -->
+      <p class="topo__datas" id="periodo-datas"></p>
+      <!-- Link para a página de campanhas (estilo de botão definido no style.css) -->
+      <a href="campanhas.html" class="botao-nav">Ver campanhas <span aria-hidden="true">→</span></a>
+    </div>
+
+    <!-- ===== FILTRO DE PERÍODO ===== -->
+    <!-- "data-periodo" diz ao JavaScript qual período cada botão representa -->
+    <!-- "aria-pressed" indica qual botão está ativo (também usado pelo CSS) -->
+    <div class="filtro" role="group" aria-label="Filtrar por período">
+      <button type="button" class="filtro__botao" data-periodo="7d"  aria-pressed="false">Últimos 7 dias</button>
+      <button type="button" class="filtro__botao" data-periodo="30d" aria-pressed="false">Últimos 30 dias</button>
+      <button type="button" class="filtro__botao" data-periodo="90d" aria-pressed="false">Últimos 90 dias</button>
+      <button type="button" class="filtro__botao" data-periodo="8s"  aria-pressed="true">Últimas 8 semanas</button>
+    </div>
+  </header>
+
+  <main class="conteudo">
+
+    <!-- ===== CARTÕES DE INDICADORES (KPIs) ===== -->
+    <!-- Os números serão preenchidos pelo script.js -->
+    <section class="kpis" aria-label="Indicadores principais">
+      <article class="kpi">
+        <p class="kpi__rotulo">Investimento em anúncios</p>
+        <p class="kpi__valor" id="kpi-investimento">—</p>
+        <p class="kpi__ajuda">Total gasto nas campanhas</p>
+      </article>
+
+      <article class="kpi">
+        <p class="kpi__rotulo">Faturamento</p>
+        <p class="kpi__valor" id="kpi-faturamento">—</p>
+        <p class="kpi__ajuda">Receita gerada pelas vendas</p>
+      </article>
+
+      <article class="kpi">
+        <p class="kpi__rotulo">Total de vendas</p>
+        <p class="kpi__valor" id="kpi-vendas">—</p>
+        <p class="kpi__ajuda">Pedidos concluídos</p>
+      </article>
+
+      <article class="kpi">
+        <p class="kpi__rotulo">CPA</p>
+        <p class="kpi__valor" id="kpi-cpa">—</p>
+        <p class="kpi__ajuda">Custo por aquisição = investimento ÷ vendas</p>
+      </article>
+
+      <article class="kpi kpi--destaque">
+        <p class="kpi__rotulo">ROAS</p>
+        <p class="kpi__valor" id="kpi-roas">—</p>
+        <p class="kpi__ajuda">Retorno = faturamento ÷ investimento</p>
+      </article>
+    </section>
+
+    <!-- ===== GRÁFICO DE VENDAS ===== -->
+    <section class="cartao">
+      <div class="cartao__cabecalho">
+        <h2 id="grafico-titulo">Vendas por semana</h2>
+        <p class="cartao__descricao">Passe o mouse (ou toque) nas barras para ver os detalhes</p>
+      </div>
+      <!-- O gráfico (SVG) será desenhado aqui pelo JavaScript -->
+      <div id="grafico" class="grafico"></div>
+      <!-- Tooltip: a caixinha que aparece ao passar o mouse -->
+      <div id="tooltip" class="tooltip" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== TABELA DE CAMPANHAS ===== -->
+    <section class="cartao">
+      <div class="cartao__cabecalho">
+        <h2>Campanhas</h2>
+        <p class="cartao__descricao" id="tabela-periodo">Dados fictícios para fins de estudo</p>
+      </div>
+      <!-- Esta div permite rolar a tabela para o lado no celular -->
+      <div class="tabela-wrapper">
+        <table class="tabela">
+          <thead>
+            <tr>
+              <th>Campanha</th>
+              <th>Canal</th>
+              <th class="num">Investimento</th>
+              <th class="num">Vendas</th>
+              <th class="num">Faturamento</th>
+              <th class="num">CPA</th>
+              <th class="num">ROAS</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <!-- As linhas serão criadas pelo script.js -->
+          <tbody id="tabela-campanhas"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    Feito com HTML, CSS e JavaScript puro · Projeto de estudo
+  </footer>
+
+  <!-- Ligamos o JavaScript no final, depois que o HTML já existe -->
+  <script src="script.js"></script>
+</body>
+</html>

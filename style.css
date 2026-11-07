@@ -1,0 +1,294 @@
+/* =========================================================
+   VARIÁVEIS DE COR
+   Guardamos as cores em "variáveis" para trocar tudo em um só lugar.
+   ========================================================= */
+:root {
+  color-scheme: light;
+  --fundo:            #f3f4f1;
+  --superficie:       #fcfcfb;   /* fundo dos cartões */
+  --borda:            #e3e2dd;
+  --texto-principal:  #0b0b0b;
+  --texto-secundario: #52514e;
+  --texto-suave:      #7a7975;
+  --grade:            #e8e7e3;   /* linhas de fundo do gráfico */
+  --serie-1:          #2a78d6;   /* cor das barras */
+  --serie-1-hover:    #1f63b6;
+  --destaque-fundo:   #eaf2fc;
+
+  /* Cores de status (sempre acompanhadas de ícone + texto) */
+  --bom-fundo:     #e3f4e8;  --bom-texto:     #146c2e;
+  --alerta-fundo:  #fdf0d5;  --alerta-texto:  #8a5a00;
+
+  --raio: 14px;
+  --sombra: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.05);
+}
+
+/* Modo escuro automático: segue a configuração do seu sistema */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --fundo:            #111110;
+    --superficie:       #1a1a19;
+    --borda:            #2e2e2c;
+    --texto-principal:  #f0efec;
+    --texto-secundario: #c3c2b7;
+    --texto-suave:      #8f8e86;
+    --grade:            #2a2a28;
+    --serie-1:          #3987e5;
+    --serie-1-hover:    #5c9eec;
+    --destaque-fundo:   #16243a;
+    --bom-fundo:     #143021;  --bom-texto:     #7fd99a;
+    --alerta-fundo:  #3a2c0c;  --alerta-texto:  #f2c35b;
+    --sombra: none;
+  }
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fundo);
+  color: var(--texto-principal);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+.topo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.topo__sub {
+  font-size: .8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--serie-1);
+}
+.topo h1 { font-size: 1.75rem; font-weight: 700; letter-spacing: -.02em; }
+.topo__datas { font-size: .85rem; color: var(--texto-secundario); margin-top: 2px; }
+
+/* ----- Botão de navegação entre páginas (usado nas duas páginas) ----- */
+.botao-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--serie-1);
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  padding: 7px 16px;
+  text-decoration: none;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.botao-nav:hover { background: var(--serie-1); color: #fff; border-color: var(--serie-1); }
+.botao-nav:focus-visible { outline: 2px solid var(--serie-1); outline-offset: 2px; }
+
+/* ----- Filtro de período (botões lado a lado) ----- */
+.filtro {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+}
+.filtro__botao {
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--texto-secundario);
+  background: transparent;
+  border: none;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.filtro__botao:hover { color: var(--texto-principal); background: var(--fundo); }
+.filtro__botao:focus-visible { outline: 2px solid var(--serie-1); outline-offset: 2px; }
+/* Botão ativo: o CSS lê o atributo aria-pressed="true" que o JavaScript coloca */
+.filtro__botao[aria-pressed="true"] {
+  background: var(--serie-1);
+  color: #fff;
+  font-weight: 600;
+}
+
+.conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px 32px;
+  display: grid;
+  /* minmax(0, 1fr) impede que um item largo (a tabela) estique a página */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+/* =========================================================
+   CARTÕES DE KPI
+   "Grid" organiza os cartões em colunas automaticamente.
+   ========================================================= */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.kpi {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 20px;
+  box-shadow: var(--sombra);
+}
+.kpi--destaque { background: var(--destaque-fundo); border-color: transparent; }
+.kpi__rotulo { font-size: .85rem; font-weight: 600; color: var(--texto-secundario); }
+.kpi__valor {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  margin: 6px 0 4px;
+  font-variant-numeric: tabular-nums;
+}
+.kpi__ajuda { font-size: .78rem; color: var(--texto-suave); }
+
+/* =========================================================
+   CARTÃO GENÉRICO (gráfico e tabela)
+   ========================================================= */
+.cartao {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 24px;
+  box-shadow: var(--sombra);
+  position: relative;  /* necessário para posicionar o tooltip */
+}
+.cartao__cabecalho { margin-bottom: 16px; }
+.cartao h2 { font-size: 1.1rem; font-weight: 650; }
+.cartao__descricao { font-size: .85rem; color: var(--texto-secundario); }
+
+/* =========================================================
+   GRÁFICO
+   ========================================================= */
+.grafico svg { width: 100%; height: auto; display: block; overflow: visible; }
+.grafico .linha-grade { stroke: var(--grade); stroke-width: 1; }
+.grafico .texto-eixo  { fill: var(--texto-suave); font-size: 12px; }
+.grafico .texto-valor { fill: var(--texto-secundario); font-size: 12px; font-weight: 600; }
+.grafico .barra { fill: var(--serie-1); transition: fill .15s; }
+.grafico .grupo-barra:hover .barra,
+.grafico .grupo-barra:focus .barra { fill: var(--serie-1-hover); }
+.grafico .grupo-barra { cursor: pointer; outline: none; }
+.grafico .alvo { fill: transparent; } /* área invisível maior, fácil de tocar */
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--texto-principal);
+  color: var(--superficie);
+  font-size: .82rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-50%, -100%);
+  transition: opacity .12s;
+}
+.tooltip.visivel { opacity: 1; }
+.tooltip strong { display: block; font-size: .95rem; }
+
+/* =========================================================
+   TABELA
+   ========================================================= */
+.tabela-wrapper { overflow-x: auto; }
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+  min-width: 720px;
+}
+.tabela th {
+  text-align: left;
+  font-size: .75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--texto-suave);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--borda);
+}
+.tabela td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--borda);
+  font-variant-numeric: tabular-nums;
+}
+.tabela tbody tr:hover { background: var(--fundo); }
+.tabela tbody tr:last-child td { border-bottom: none; }
+.tabela .num { text-align: right; }
+.tabela .nome { font-weight: 600; }
+.tabela .canal { color: var(--texto-secundario); }
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.status--bom    { background: var(--bom-fundo);    color: var(--bom-texto); }
+.status--alerta { background: var(--alerta-fundo); color: var(--alerta-texto); }
+
+.rodape {
+  text-align: center;
+  font-size: .8rem;
+  color: var(--texto-suave);
+  padding: 0 24px 32px;
+}
+
+/* =========================================================
+   RESPONSIVIDADE
+   "@media" aplica regras diferentes conforme a largura da tela.
+   ========================================================= */
+
+/* Tablets e notebooks pequenos: 3 colunas */
+@media (max-width: 1024px) {
+  .kpis { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* Celulares: 2 colunas, espaçamentos menores */
+@media (max-width: 640px) {
+  .topo { padding: 24px 16px 4px; }
+  .topo h1 { font-size: 1.4rem; }
+  /* No celular o filtro vira uma grade 2x2 ocupando toda a largura */
+  .filtro {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 14px;
+  }
+  .filtro__botao { border-radius: 10px; padding: 9px 8px; }
+  .conteudo { padding: 12px 16px 24px; gap: 16px; }
+  .kpis { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .kpi { padding: 16px; }
+  .kpi__valor { font-size: 1.45rem; }
+  .kpi--destaque { grid-column: span 2; } /* ROAS ocupa a linha inteira */
+  .cartao { padding: 18px; }
+  /* O gráfico encolhe no celular, então aumentamos o texto dele para compensar */
+  .grafico .texto-eixo,
+  .grafico .texto-valor { font-size: 22px; }
+}

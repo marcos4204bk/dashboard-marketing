@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campanhas · Dashboard de Marketing Digital</title>
+  <!-- Reaproveitamos os estilos do dashboard... -->
+  <link rel="stylesheet" href="style.css">
+  <!-- ...e acrescentamos só o que é exclusivo desta página -->
+  <link rel="stylesheet" href="campanhas.css">
+</head>
+<body>
+
+  <!-- ===== CABEÇALHO ===== -->
+  <header class="topo">
+    <div>
+      <p class="topo__sub">Marketing Digital</p>
+      <h1>Campanhas</h1>
+      <p class="topo__datas">Meta Ads e Google Ads · Dados fictícios para fins de estudo</p>
+      <a href="index.html" class="botao-nav"><span aria-hidden="true">←</span> Voltar ao dashboard</a>
+    </div>
+  </header>
+
+  <main class="conteudo">
+
+    <!-- ===== INDICADORES (somatório de todas as campanhas da tabela) ===== -->
+    <section class="kpis" aria-label="Indicadores das campanhas">
+      <article class="kpi">
+        <p class="kpi__rotulo">Investimento</p>
+        <p class="kpi__valor" id="kpi-investimento">—</p>
+        <p class="kpi__ajuda">Total gasto nas campanhas</p>
+      </article>
+
+      <article class="kpi">
+        <p class="kpi__rotulo">Faturamento</p>
+        <p class="kpi__valor" id="kpi-faturamento">—</p>
+        <p class="kpi__ajuda">Receita gerada pelas vendas</p>
+      </article>
+
+      <article class="kpi">
+        <p class="kpi__rotulo">Vendas</p>
+        <p class="kpi__valor" id="kpi-vendas">—</p>
+        <p class="kpi__ajuda">Pedidos concluídos</p>
+      </article>
+
+      <article class="kpi">
+        <p class="kpi__rotulo">CPA</p>
+        <p class="kpi__valor" id="kpi-cpa">—</p>
+        <p class="kpi__ajuda">Custo por aquisição = investimento ÷ vendas</p>
+      </article>
+
+      <article class="kpi kpi--destaque">
+        <p class="kpi__rotulo">ROAS</p>
+        <p class="kpi__valor" id="kpi-roas">—</p>
+        <p class="kpi__ajuda">Retorno = faturamento ÷ investimento</p>
+      </article>
+    </section>
+
+    <!-- ===== TABELA DE CAMPANHAS ===== -->
+    <section class="cartao">
+      <div class="cartao__cabecalho">
+        <h2>Todas as campanhas</h2>
+        <p class="cartao__descricao" id="tabela-resumo">Dados fictícios para fins de estudo</p>
+      </div>
+      <div class="tabela-wrapper">
+        <!-- A classe "tabela--cartoes" transforma cada linha em um cartão no celular -->
+        <table class="tabela tabela--cartoes">
+          <thead>
+            <tr>
+              <th>Nome da campanha</th>
+              <th>Plataforma</th>
+              <th class="num">Investimento</th>
+              <th class="num">Faturamento</th>
+              <th class="num">Vendas</th>
+              <th class="num">CPA</th>
+              <th class="num">ROAS</th>
+            </tr>
+          </thead>
+          <!-- As linhas são criadas pelo campanhas.js -->
+          <tbody id="tabela-campanhas"></tbody>
+          <!-- Linha de total -->
+          <tfoot id="tabela-total"></tfoot>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    Feito com HTML, CSS e JavaScript puro · Projeto de estudo
+  </footer>
+
+  <script src="campanhas.js"></script>
+</body>
+</html>

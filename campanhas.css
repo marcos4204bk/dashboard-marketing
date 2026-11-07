@@ -1,0 +1,81 @@
+/* =========================================================
+   ESTILOS EXCLUSIVOS DA PÁGINA DE CAMPANHAS
+   Todo o resto (cores, cartões, KPIs, tabela) vem do style.css.
+   ========================================================= */
+
+/* Selo da plataforma (cor + texto, nunca só cor) */
+.plataforma {
+  display: inline-block;
+  font-size: .78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.plataforma--meta   { background: var(--destaque-fundo); color: var(--serie-1); }
+.plataforma--google { background: var(--alerta-fundo);   color: var(--alerta-texto); }
+
+/* Linha de total no rodapé da tabela */
+.tabela tfoot td {
+  padding: 14px 12px;
+  font-weight: 700;
+  border-top: 2px solid var(--borda);
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   CELULAR: cada linha da tabela vira um cartão
+   ========================================================= */
+@media (max-width: 640px) {
+  .tabela--cartoes { min-width: 0; }
+  .tabela--cartoes thead { display: none; }   /* os nomes das colunas aparecem dentro de cada cartão */
+  .tabela--cartoes,
+  .tabela--cartoes tbody,
+  .tabela--cartoes tfoot,
+  .tabela--cartoes tr,
+  .tabela--cartoes td { display: block; width: 100%; }
+
+  .tabela--cartoes tr {
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    padding: 6px 14px;
+    margin-bottom: 12px;
+  }
+  .tabela--cartoes tbody tr:hover { background: transparent; }
+  .tabela--cartoes tfoot tr { background: var(--destaque-fundo); border-color: transparent; margin-bottom: 0; }
+
+  .tabela--cartoes td,
+  .tabela--cartoes tfoot td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid var(--grade);
+    text-align: right;
+  }
+  .tabela--cartoes tr td:last-child { border-bottom: none; }
+
+  /* Nome da coluna à esquerda de cada valor */
+  .tabela--cartoes td::before {
+    content: attr(data-label);
+    font-size: .72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--texto-suave);
+    text-align: left;
+  }
+
+  /* O nome da campanha vira o título do cartão */
+  .tabela--cartoes td.nome {
+    font-size: 1rem;
+    text-align: left;
+    padding-top: 10px;
+  }
+  .tabela--cartoes td.nome::before { display: none; }
+
+  /* Rótulo da linha de total ("Todas") não precisa aparecer duplicado */
+  .tabela--cartoes tfoot td[data-label="Plataforma"] { display: none; }
+}
